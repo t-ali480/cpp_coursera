@@ -15,6 +15,7 @@ void MerkelMain::init()
 {
     int input;
     currentTime = orderBook.getEarliestTime();
+    wallet.insertCurrency("BTC", 10);
     while(true)
     {
         printMenu();
@@ -105,7 +106,7 @@ void MerkelMain::enterAsk()
 void MerkelMain::enterBid()
 {
     
-    std::cout << "Make an ask - enter the amount: product,price, amount, eg  ETH/BTC,200,0.5" << std::endl;
+    std::cout << "Make an bid - enter the amount: product,price, amount, eg  ETH/BTC,200,0.5" << std::endl;
     std::string input;
     std::getline(std::cin, input);
 
@@ -121,7 +122,7 @@ void MerkelMain::enterBid()
                 tokens[2], 
                 currentTime, 
                 tokens[0], 
-                OrderBookType::ask
+                OrderBookType::bid
             );
             obe.username = "simuser";
             
@@ -145,7 +146,7 @@ void MerkelMain::enterBid()
 
 void MerkelMain::printWallet()
 {
-    std::cout << "Your wallet is empty. " << std::endl;
+    std::cout << wallet.toString() << std::endl;
 }
         
 void MerkelMain::gotoNextTimeframe()

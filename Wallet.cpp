@@ -69,7 +69,7 @@ bool Wallet::containsCurrency(std::string type, double amount)
         return true;
     }
     balance += amount;
-    currencies[type] = amount;
+    currencies[type] = balance;
 }
 
 std::string Wallet::toString()
@@ -101,6 +101,7 @@ bool Wallet::canFulfillOrder(OrderBookEntry order)
         std::string currency = currs[0];
         return containsCurrency(currency, amount);
     }
+    //bid
     if (order.orderType == OrderBookType::bid)
     {
         double amount = order.amount * order.price;
@@ -124,7 +125,6 @@ void Wallet::processSale(OrderBookEntry& sale)
         currencies[incomingCurrency] += incomingAmount;
         currencies[outgoingCurrency] -= outgoingAmount;
     }
-    
     // bid
     if (sale.orderType == OrderBookType::bidsale)
     {
