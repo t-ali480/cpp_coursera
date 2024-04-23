@@ -13,19 +13,31 @@ Wallet::Wallet()
 
 void Wallet::insertCurrency(std::string type, double amount)
 {   
-    if (amount > 0)
+    double balance;
+    if (amount < 0)
     {
+        throw std::exception{};
+    }
+    if (currencies.count(type) == 0)
+    {
+        balance = 0;
+        
+        /*
         double balance = amount;
         currencies[type] += balance;
         for (const auto& pair : currencies)
         {
             std::cout << pair.first << ": " << pair.second << std::endl;    
-        }    
+        } 
+        */   
     }
     else
     {
+        balance = currencies[type];
         std::cout << "Bad insert. Enter positive integer" << std::endl; 
-    }     
+    } 
+    balance += amount; 
+    currencies[type] = balance; 
 }
 
 bool Wallet::removeCurrency(std::string type, double amount)
@@ -42,7 +54,7 @@ bool Wallet::removeCurrency(std::string type, double amount)
     }
     else
     {
-        if (containsCurrency(type, amount) > amount)
+        if (containsCurrency(type, amount))
         {
             currencies[type] -= amount;
             return true;
@@ -60,16 +72,12 @@ bool Wallet::containsCurrency(std::string type, double amount)
     
     if (currencies.count(type) == 0)
     {
-        balance = 0;
         return false;
     }
     else
     {
-        balance = currencies[type];
-        return true;
+        return currencies[type] = amount;
     }
-    balance += amount;
-    currencies[type] = balance;
 }
 
 std::string Wallet::toString()

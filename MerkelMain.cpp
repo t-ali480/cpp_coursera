@@ -99,8 +99,6 @@ void MerkelMain::enterAsk()
             std::cout << " MerkelMain::enterAsk Bad input " << std::endl;
         }   
     }
-
-    std::cout << "You typed: " << input << std::endl;
 }
 
 void MerkelMain::enterBid()
@@ -140,8 +138,6 @@ void MerkelMain::enterBid()
             std::cout << " MerkelMain::enterBid Bad input " << std::endl;
         }   
     }
-
-    std::cout << "You typed: " << input << std::endl;
 }
 
 void MerkelMain::printWallet()

@@ -99,7 +99,7 @@ void OrderBook::insertOrder(OrderBookEntry& order)
 }
 
 std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std::string timestamp)
-{\
+{
     std::vector<OrderBookEntry> asks = getOrders(OrderBookType::ask, 
                                                  product, 
                                                  timestamp);
@@ -108,6 +108,12 @@ std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std:
                                                  timestamp);
 
     std::vector<OrderBookEntry> sales; 
+
+    if (asks.size() == 0 || bids.size() == 0)
+    {
+        std::cout << " OrderBook::matchAsksToBids no bids or asks" << std::endl;
+        return sales;
+    }
 
     // sort asks lowest first
     std::sort(asks.begin(), asks.end(), OrderBookEntry::compareByPriceAsc);
@@ -128,9 +134,9 @@ std::vector<OrderBookEntry> OrderBook::matchAsksToBids(std::string product, std:
             {
                 std::cout << "bid price is right " << std::endl;
 
-                OrderBookEntry sale{ask.price, 0, timestamp, 
-                                    product, 
-                                    OrderBookType::asksale};
+            OrderBookEntry sale{ask.price, 0, timestamp, 
+                product, 
+                OrderBookType::asksale};
 
                 if (bid.username == "simuser")
                 {

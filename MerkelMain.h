@@ -21,10 +21,11 @@ class MerkelMain
         void gotoNextTimeframe();
         int getUserOption();
         void processUserOption(int userOption);
-        Wallet wallet;
 
         std::string currentTime;
 
         OrderBook orderBook{"20200317.csv"};
+
+        Wallet wallet;
 
 };
